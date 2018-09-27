@@ -13,3 +13,6 @@ script:
   - yarn build
   - yarn docs
   - yarn test
+
+after_success:
+  - codecov
