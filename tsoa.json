@@ -1,0 +1,12 @@
+{
+  "swagger": {
+    "outputDirectory": "./build",
+    "entryFile": "./src/index.ts",
+    "basePath": "/"
+  },
+  "routes": {
+    "basePath": "/",
+    "entryFile": "./src/index.ts",
+    "routesDir": "./src/routes/index.ts"
+  }
+}
