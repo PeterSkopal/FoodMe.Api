@@ -7,10 +7,23 @@
   "scripts": {
     "start": "node build/index.js",
     "start-local": "yarn build && node build/index.js",
-    "test": "mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.spec.ts'",
+    "test": "nyc mocha src/**/*.ts",
     "build": "gulp scripts",
     "deploy": "yarn build && yarn docs && yarn test && gcloud app deploy",
     "docs": "tsoa swagger"
+  },
+  "nyc": {
+    "exclude": [
+      "src/**/*.spec.ts"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "reporter": [
+      "text-summary",
+      "lcov"
+    ]
   },
   "contributors": [
     {
@@ -26,6 +39,7 @@
     "debug": "^4.0.1",
     "express": "4.16.2",
     "morgan": "^1.9.1",
+    "swagger-ui-express": "^4.0.1",
     "tsoa": "^2.2.0"
   },
   "devDependencies": {
@@ -44,7 +58,7 @@
     "gulp": "^3.9.1",
     "gulp-typescript": "^5.0.0-alpha.3",
     "mocha": "^5.2.0",
-    "swagger-ui-express": "^4.0.1",
+    "nyc": "^13.0.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.3"
   }
