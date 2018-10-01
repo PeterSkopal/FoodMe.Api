@@ -1,6 +1,6 @@
-import { resolve } from 'dns';
-
 const Datastore = require('@google-cloud/datastore');
+
+import { DataStoreKeyType } from './../models'
 
 export class DatastoreService {
   ds: any;
@@ -38,7 +38,7 @@ export class DatastoreService {
     });
   }
 
-  async getByType(type: string, value: string) {
+  async getByType(type: DataStoreKeyType, value: string) {
     return new Promise(resolve => {
       const query = this.ds
         .createQuery(this.datastoreKey)

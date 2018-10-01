@@ -1,11 +1,9 @@
-const Datastore = require('@google-cloud/datastore');
-
-import { User } from './../models'
+import { DataStoreKeyType, DataStoreKindType, User } from './../models'
 import { DatastoreService } from '../serivices/datastore.service';
 
 export class UserRepository {
   datastoreService: DatastoreService;
-  datastoreKey = 'User';
+  datastoreKey = DataStoreKindType.USER;
 
   constructor() {
     this.datastoreService = new DatastoreService(this.datastoreKey);
@@ -16,7 +14,7 @@ export class UserRepository {
   }
 
   public async getUser(email: string) {
-    return await this.datastoreService.getByType('email', email);
+    return await this.datastoreService.getByType(DataStoreKeyType.EMAIL, email);
   }
 
 }
