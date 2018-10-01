@@ -30,24 +30,20 @@ export class DatastoreService {
 
       this.ds.save(entity, err => {
         data.id = entity.key.id;
-        if (err) {
-          throw err;
-        }
+        if (err) throw err;
         resolve(data);
       });
     });
   }
 
   async getByType(type: DataStoreKeyType, value: string) {
-    return new Promise(resolve => {
       const query = this.ds
         .createQuery(this.datastoreKey)
         .filter(type, '=', value);
   
-      this.ds.runQuery(query).then(result => {
-        resolve(result[0][0]);
-      });
-    });
+      const { err, result } = await this.ds.runQuery(query);
+      if (err) throw err;
+      return result[0][0];
   }
 
   async create(data) {
