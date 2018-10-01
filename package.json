@@ -6,10 +6,10 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/index.js",
-    "start-local": "yarn build && node build/index.js",
+    "start-local": "npm run build && node build/index.js",
     "test": "nyc mocha src/**/*.spec.ts",
     "build": "gulp scripts",
-    "deploy": "yarn build && yarn docs && yarn test && gcloud app deploy",
+    "deploy": "npm run build && npm run docs && npm run test && gcloud app deploy",
     "docs": "tsoa swagger"
   },
   "nyc": {
