@@ -6,3 +6,5 @@ yarn-error.log
 .env
 .nyc_output
 .DS_Store
+
+servkey.json

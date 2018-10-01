@@ -1,7 +1,7 @@
 import { Get, Route, Controller, Tags } from 'tsoa';
 
-@Route('ping')
 @Tags('Ping')
+@Route('ping')
 export class PingController extends Controller {
   
   @Get()
