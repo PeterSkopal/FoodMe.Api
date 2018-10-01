@@ -23,5 +23,6 @@ after_success:
 
 deploy:
   provider: gae
+  skip_cleanup: true
   keyfile: gcp-dev-key.json
   project: food-me-api

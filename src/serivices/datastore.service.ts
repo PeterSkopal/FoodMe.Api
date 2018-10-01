@@ -1,6 +1,6 @@
 const Datastore = require('@google-cloud/datastore');
 
-import { DataStoreKeyType } from './../models'
+import { DataStoreKeyType } from './../models';
 
 export class DatastoreService {
   ds: any;
@@ -8,7 +8,7 @@ export class DatastoreService {
 
   constructor(kind: string) {
     this.ds = Datastore({
-      keyFilename: './servkey.json',
+      keyFilename: './gcp-dev-key.json',
       projectId: 'food-me-api',
     });
     this.datastoreKey = kind;
@@ -37,13 +37,15 @@ export class DatastoreService {
   }
 
   async getByType(type: DataStoreKeyType, value: string) {
+    return new Promise(resolve => {
       const query = this.ds
         .createQuery(this.datastoreKey)
         .filter(type, '=', value);
-  
-      const { err, result } = await this.ds.runQuery(query);
-      if (err) throw err;
-      return result[0][0];
+
+      this.ds.runQuery(query).then(result => {
+        resolve(result[0][0]);
+      });
+    });
   }
 
   async create(data) {
