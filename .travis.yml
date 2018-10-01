@@ -1,18 +1,27 @@
 sudo: false
 language: node_js
 node_js:
-- "8"
+- '8'
 
 cache:
   yarn: true
   directories:
-  - $HOME/gcloud/
+  - "$HOME/gcloud/"
   - node_modules/
 
+before_install:
+- openssl aes-256-cbc -K $encrypted_1bbfdd191923_key -iv $encrypted_1bbfdd191923_iv
+  -in gcp-dev-key.json.enc -out gcp-dev-key.json -d
+
 script:
-  - yarn build
-  - yarn docs
-  - yarn test
+- yarn build
+- yarn docs
+- yarn test
 
 after_success:
-  - codecov
+- codecov
+
+deploy:
+  provider: gae
+  keyfile: gcp-dev-key.json
+  project: food-me-api
