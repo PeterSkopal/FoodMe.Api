@@ -18,9 +18,9 @@ export class DatastoreService {
     return new Promise(resolve => {
       let key;
       if (id) {
-        key = this.ds.key([this.datastoreKey, data.email]);
+        key = this.ds.key([this.datastoreKey, id]);
       } else {
-        key = this.ds.key([this.datastoreKey, data.email]);
+        key = this.ds.key(this.datastoreKey);
       }
 
       const entity = {
@@ -48,8 +48,20 @@ export class DatastoreService {
     });
   }
 
-  async create(data) {
-    return await this.update(null, data);
+  async getAllByType(type: DataStoreKeyType, value: string) {
+    return new Promise(resolve => {
+      const query = this.ds
+        .createQuery(this.datastoreKey)
+        .filter(type, '=', value);
+
+      this.ds.runQuery(query).then(result => {
+        resolve(result[0]);
+      });
+    });
+  }
+
+  async create(data, id?) {
+    return await this.update(id || null, data);
   }
 
   toDatastore(obj, nonIndexed) {

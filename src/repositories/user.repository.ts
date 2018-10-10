@@ -10,7 +10,7 @@ export class UserRepository {
   }
 
   public async addUser(body: User) {
-    return await this.datastoreService.create(body);
+    return await this.datastoreService.create(body, body.email);
   }
 
   public async getUser(email: string) {
