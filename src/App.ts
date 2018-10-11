@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as logger from 'morgan';
 
+import GroceryRouter from './routes/grocery.route';
 import PingRouter from './routes/ping.route';
 import UserRouter from './routes/user.route';
 
@@ -28,6 +29,7 @@ class App {
     let router = express.Router();
     this.express.use('/', router);
     this.express.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    this.express.use('/grocery', GroceryRouter);
     this.express.use('/ping', PingRouter);
     this.express.use('/user', UserRouter);
   }
