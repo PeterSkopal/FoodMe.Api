@@ -1,5 +1,5 @@
 import { DataStoreKeyType, DataStoreKindType, User } from './../models'
-import { DatastoreService } from '../serivices/datastore.service';
+import { DatastoreService } from '../services/datastore.service';
 
 export class UserRepository {
   datastoreService: DatastoreService;
