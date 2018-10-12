@@ -24,6 +24,6 @@ export class GroceryRouter {
   }
 }
 
-const userRoutes = new GroceryRouter();
+const groceryRoutes = new GroceryRouter();
 
-export default userRoutes.router;
+export default groceryRoutes.router;
