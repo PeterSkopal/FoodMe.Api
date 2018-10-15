@@ -1,5 +1,5 @@
 import { DataStoreKeyType, DataStoreKindType, User } from './../models'
-import { DatastoreService } from '../serivices/datastore.service';
+import { DatastoreService } from '../services/datastore.service';
 
 export class UserRepository {
   datastoreService: DatastoreService;
@@ -13,7 +13,13 @@ export class UserRepository {
     return await this.datastoreService.create(body, body.email);
   }
 
-  public async getUser(email: string) {
+  public async updateUser(email: string, token: string) {
+    let user = await this.getUserByEmail(email);
+    user = { ...user, token };
+    return await this.datastoreService.create(user, email);
+  }
+
+  public async getUserByEmail(email: string) {
     return await this.datastoreService.getByType(DataStoreKeyType.EMAIL, email);
   }
 

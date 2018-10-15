@@ -1,5 +1,5 @@
 import { DataStoreKeyType, DataStoreKindType, Grocery } from './../models'
-import { DatastoreService } from '../serivices/datastore.service';
+import { DatastoreService } from '../services/datastore.service';
 
 export class GroceryRepository {
   datastoreService: DatastoreService;

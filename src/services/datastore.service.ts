@@ -14,28 +14,6 @@ export class DatastoreService {
     this.datastoreKey = kind;
   }
 
-  async update(id, data) {
-    return new Promise(resolve => {
-      let key;
-      if (id) {
-        key = this.ds.key([this.datastoreKey, id]);
-      } else {
-        key = this.ds.key(this.datastoreKey);
-      }
-
-      const entity = {
-        key: key,
-        data: this.toDatastore(data, ['description']),
-      };
-
-      this.ds.save(entity, err => {
-        data.id = entity.key.id;
-        if (err) throw err;
-        resolve(data);
-      });
-    });
-  }
-
   async getByType(type: DataStoreKeyType, value: string) {
     return new Promise(resolve => {
       const query = this.ds
@@ -61,7 +39,25 @@ export class DatastoreService {
   }
 
   async create(data, id?) {
-    return await this.update(id || null, data);
+    return new Promise(resolve => {
+      let key;
+      if (id) {
+        key = this.ds.key([this.datastoreKey, id]);
+      } else {
+        key = this.ds.key(this.datastoreKey);
+      }
+
+      const entity = {
+        key: key,
+        data: this.toDatastore(data, ['description']),
+      };
+
+      this.ds.save(entity, err => {
+        data.id = entity.key.id;
+        if (err) throw err;
+        resolve(data);
+      });
+    });
   }
 
   toDatastore(obj, nonIndexed) {
