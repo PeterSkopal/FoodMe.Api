@@ -1,4 +1,6 @@
 import { Response, Request, Router } from 'express';
+
+import { auth } from './auth';
 import { GroceryController } from './../controllers/grocery.controller';
 
 export class GroceryRouter {
@@ -13,12 +15,14 @@ export class GroceryRouter {
   }
 
   initRoutes() {
-    this.router.get('/:email', (req: Request, res: Response) => {
+    this.router.get('/', auth.required, (req: Request, res: Response) => {
       this.ctrl.setRes(res);
-      this.ctrl.getAllGroceries(req.params.email);
+      this.ctrl.setUserEmail(req.payload && req.payload.email);
+      this.ctrl.getAllGroceries();
     });
-    this.router.post('/', (req: Request, res: Response) => {
+    this.router.post('/', auth.required, (req: Request, res: Response) => {
       this.ctrl.setRes(res);
+      this.ctrl.setUserEmail(req.payload && req.payload.email);
       this.ctrl.addGrocery(req.body);
     });
   }

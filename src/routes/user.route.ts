@@ -3,7 +3,6 @@ import * as passport from 'passport';
 
 import { auth } from './auth';
 import { UserController } from './../controllers/user.controller';
-import { runInNewContext } from 'vm';
 
 export class UserRouter {
   router: Router;

@@ -2,6 +2,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import app from './../../App';
+import { token } from './test-token'
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -15,8 +16,9 @@ const groceriesBody = [
 
 describe(`GET ${baseUrl}`, () => {
 
-  it('should return all groceries linked to john.doe@example.com', () => {
-    return chai.request(app).get('/grocery/john.doe@example.com')
+  it('should return all groceries linked to test.user@example.com', () => {
+    return chai.request(app).get('/grocery')
+    .set('Authorization', token)
     .then(res => {
       expect(res.status).to.equal(200);
       expect(res.body).to.exist;
@@ -27,9 +29,10 @@ describe(`GET ${baseUrl}`, () => {
 
 describe (`POST ${baseUrl}`, () => {
 
-  it('should post all groceries in body, and link to john.doe@example.com', () => {
+  it('should post all groceries in body, and link to test.user@example.com', () => {
     return chai.request(app).post('/grocery')
     .set('content-type', 'application/json')
+    .set('Authorization', token)
     .send(groceriesBody)
     .then(res => {
       expect(res.status).to.equal(200);
