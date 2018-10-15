@@ -21,7 +21,7 @@ export class DatastoreService {
         .filter(type, '=', value);
 
       this.ds.runQuery(query).then(result => {
-        resolve(result[0][0]);
+        resolve(this.fromDatastore(result[0][0]));
       });
     });
   }
@@ -33,7 +33,7 @@ export class DatastoreService {
         .filter(type, '=', value);
 
       this.ds.runQuery(query).then(result => {
-        resolve(result[0]);
+        resolve(result[0].map(this.fromDatastore));
       });
     });
   }
@@ -74,5 +74,10 @@ export class DatastoreService {
       });
     });
     return results;
+  }
+
+  fromDatastore(obj) {
+    obj.id = obj[Datastore.KEY].id;
+    return obj;
   }
 }

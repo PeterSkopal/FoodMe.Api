@@ -1,3 +1,4 @@
 export enum DataStoreKeyType {
-  EMAIL = 'email'
+  EMAIL = 'email',
+  TOKEN = 'token',
 }
