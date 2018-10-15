@@ -1,5 +1,9 @@
 import { Response, Request, Router } from 'express';
+import * as passport from 'passport';
+
+import { auth } from './auth';
 import { UserController } from './../controllers/user.controller';
+import { runInNewContext } from 'vm';
 
 export class UserRouter {
   router: Router;
@@ -13,14 +17,21 @@ export class UserRouter {
   }
 
   initRoutes() {
-    this.router.get('/:email', (req: Request, res: Response) => {
-      this.ctrl.setRes(res);
-      this.ctrl.getUser(req.params.email);
-    });
-    this.router.post('/', (req: Request, res: Response) => {
+    this.router.post('/', auth.optional, (req: Request, res: Response) => {
       this.ctrl.setRes(res);
       this.ctrl.addUser(req.body);
     });
+    this.router.get('/:email', auth.required, (req: Request, res: Response) => {
+      this.ctrl.setRes(res);
+      this.ctrl.getUserByEmail(req.params.email);
+    });
+    this.router.post('/login',
+      passport.authenticate('local', { session: false }),
+      (req: Request, res: Response) => {
+        this.ctrl.setRes(res);
+        this.ctrl.loginUser(req.user);
+      }
+    );
   }
 }
 
