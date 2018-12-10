@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Body, Get, Route, Controller, Tags, Post } from 'tsoa';
+import { Body, Get, Route, Controller, Tags, Post, Delete } from 'tsoa';
 
 import { Grocery } from './../models';
 import { GroceryRepository } from './../repositories/grocery.repository';
@@ -42,5 +42,11 @@ export class GroceryController extends Controller {
   public async getAllGroceries() {
     const grocery = await this.groceryRepo.getAllGroceries(this.userEmail);
     this.res.send(grocery);
+  }
+
+  @Delete('{id}')
+  public async deleteGrocery(id) {
+    const deleted = await this.groceryRepo.deleteGrocery(id);
+    this.res.send(deleted);
   }
 }

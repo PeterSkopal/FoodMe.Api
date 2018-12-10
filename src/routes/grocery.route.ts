@@ -25,6 +25,11 @@ export class GroceryRouter {
       this.ctrl.setUserEmail(req.payload && req.payload.email);
       this.ctrl.addGrocery(req.body);
     });
+    this.router.delete('/:id', auth.required, (req: Request, res: Response) => {
+      this.ctrl.setRes(res);
+      this.ctrl.setUserEmail(req.payload && req.payload.email);
+      this.ctrl.deleteGrocery(req.params.id);
+    });
   }
 }
 

@@ -22,4 +22,8 @@ export class GroceryRepository {
     return await this.datastoreService.getAllByType(DataStoreKeyType.EMAIL, email);
   }
 
+  public async deleteGrocery(id: string) {
+    return await this.datastoreService.delete(id);
+  }
+
 }
