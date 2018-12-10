@@ -60,6 +60,13 @@ export class DatastoreService {
     });
   }
 
+  async delete(id) {
+    return new Promise(resolve => {
+      var key = this.ds.key([this.datastoreKey, parseInt(id, 10)]);
+      this.ds.delete(key, resolve(id));
+    });
+  }
+
   toDatastore(obj, nonIndexed) {
     nonIndexed = nonIndexed || [];
     const results = [];
