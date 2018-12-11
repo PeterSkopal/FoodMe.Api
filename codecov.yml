@@ -5,9 +5,11 @@ coverage:
 
   status:
     project:
-      default: on
+      default:
+        target: 80%
     patch:
-      default: on
+      default:
+        target: 80%
     changes:
       default: off
 
