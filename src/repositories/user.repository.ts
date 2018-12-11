@@ -19,7 +19,7 @@ export class UserRepository {
     return await this.datastoreService.create(user, email);
   }
 
-  public async getUserByEmail(email: string) {
+  public async getUserByEmail(email: string): Promise<User> {
     return await this.datastoreService.getByType(DataStoreKeyType.EMAIL, email);
   }
 

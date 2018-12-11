@@ -14,7 +14,7 @@ export class DatastoreService {
     this.datastoreKey = kind;
   }
 
-  async getByType(type: DataStoreKeyType, value: string) {
+  async getByType(type: DataStoreKeyType, value: string): Promise<any> {
     return new Promise(resolve => {
       const query = this.ds
         .createQuery(this.datastoreKey)
