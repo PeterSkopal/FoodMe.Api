@@ -40,8 +40,12 @@ export class GroceryController extends Controller {
 
   @Get()
   public async getAllGroceries() {
-    const grocery = await this.groceryRepo.getAllGroceries(this.userEmail);
-    this.res.send(grocery);
+    let groceries = await this.groceryRepo.getAllGroceries(this.userEmail);
+    for (let i = 0; i < groceries.length; i++) {
+      let g = groceries[i]
+      groceries[i] = { name: g.name, inserted: g.inserted, id: g.id}
+    }
+    this.res.send(groceries);
   }
 
   @Delete('{id}')

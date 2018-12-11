@@ -26,11 +26,22 @@ export class DatastoreService {
     });
   }
 
-  async getAllByType(type: DataStoreKeyType, value: string) {
+  async getAllByType(
+    type: DataStoreKeyType,
+    value: string,
+    orderRule: string = undefined,
+    desc: boolean = false
+  ): Promise<any> {
     return new Promise(resolve => {
       const query = this.ds
         .createQuery(this.datastoreKey)
         .filter(type, '=', value);
+
+      if (orderRule !== undefined) {
+        query.order(type).order(orderRule, {
+          descending: desc,
+        });
+      }
 
       this.ds.runQuery(query).then(result => {
         resolve(result[0].map(this.fromDatastore));
