@@ -1,4 +1,4 @@
-import { DataStoreKeyType, DataStoreKindType, Grocery } from './../models'
+import { DataStoreKeyType, DataStoreKindType, Grocery } from './../models';
 import { DatastoreService } from '../services/datastore.service';
 
 export class GroceryRepository {
@@ -12,18 +12,23 @@ export class GroceryRepository {
   public async addGrocery(body: Grocery[]) {
     const res = [];
 
-    return await Promise.all(body.map(async (grocery) => {
-      res.push(await this.datastoreService.create(grocery))
-    })).then(() => res);
+    return await Promise.all(
+      body.map(async grocery => {
+        res.push(await this.datastoreService.create(grocery));
+      })
+    ).then(() => res);
   }
 
-  public async getAllGroceries(email: string) {
-    // @ToDo: parse out email from reponse, via .select([fields]) function
-    return await this.datastoreService.getAllByType(DataStoreKeyType.EMAIL, email);
+  public async getAllGroceries(email: string): Promise<Grocery[]> {
+    return await this.datastoreService.getAllByType(
+      DataStoreKeyType.EMAIL,
+      email,
+      'inserted',
+      true
+    );
   }
 
   public async deleteGrocery(id: string) {
     return await this.datastoreService.delete(id);
   }
-
 }
