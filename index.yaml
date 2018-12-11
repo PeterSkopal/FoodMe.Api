@@ -1,0 +1,25 @@
+# Index file defining Datastore structure
+# Updated via gcloud cli
+
+indexes:
+- kind: Grocery
+  properties:
+  - name: id
+  - name: email
+  - name: inserted
+  - name: name
+- kind: Grocery
+  properties:
+  - name: name
+  - name: inserted
+- kind: Grocery
+  properties:
+  - name: email
+  - name: inserted
+    direction: desc
+
+
+- kind: User
+  properties:
+  - name: email
+  - name: name
