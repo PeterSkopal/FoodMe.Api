@@ -39,7 +39,8 @@ export class UserController extends Controller {
 
   @Get('{email}')
   public async getUserByEmail(@Path() email: string) {
-    const user = await this.userRepo.getUserByEmail(email);
+    let user: User = await this.userRepo.getUserByEmail(email);
+    user = { email: user.email, name: user.name }
     this.res.send(user);
   }
 
