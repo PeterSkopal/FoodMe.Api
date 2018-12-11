@@ -15,21 +15,22 @@ const groceriesBody = [
 ];
 
 describe(`GET ${baseUrl}`, () => {
-  it('should return all groceries linked to test.user@example.com', () => {
-    return chai
+  it('should return all groceries linked to test.user@example.com', done => {
+    chai
       .request(app)
       .get('/grocery')
       .set('Authorization', token)
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body).to.exist;
+        done();
       });
   });
 });
 
 describe(`POST ${baseUrl}`, () => {
-  it('should post all groceries in body, and link to test.user@example.com', () => {
-    return chai
+  it('should post all groceries in body, and link to test.user@example.com', done => {
+    chai
       .request(app)
       .post('/grocery')
       .set('content-type', 'application/json')
@@ -38,24 +39,26 @@ describe(`POST ${baseUrl}`, () => {
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
+        done();
       });
   });
 });
 
 describe(`DELETE ${baseUrl}`, () => {
-  it('should delete one grocery', () => {
-    return chai
+  it('should delete one grocery', done => {
+    chai
       .request(app)
       .get('/grocery')
       .set('Authorization', token)
       .then(res => {
         expect(res.status).to.equal(200);
-        return chai
+        chai
           .request(app)
           .del(`/grocery/${res.body[0].id}`)
           .set('Authorization', token)
           .then(res => {
             expect(res.status).to.equal(200);
+            done();
           });
       });
   });
